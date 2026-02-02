@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Siswa - Literasi & Peminjaman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Amiri:ital@0;1&family=Outfit:wght@300;400;600;700&display=swap");
+      body {
+        font-family: "Outfit", sans-serif;
+      }
+      .arabic {
+        font-family: "Amiri", serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 flex flex-col min-h-screen">
+    <nav
+      class="bg-white/80 backdrop-blur-md sticky top-0 z-40 px-6 py-4 flex justify-between items-center shadow-sm border-b border-gray-100"
+    >
+      <div class="flex items-center gap-3">
+        <div
+          class="w-10 h-10 bg-green-600 rounded-xl text-white flex items-center justify-center text-xl shadow-lg"
+        >
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-green-900 leading-tight">Area Literasi</h1>
+          <p class="text-xs text-gray-500">MA Bilingual Muslimat NU</p>
+        </div>
+      </div>
+      <a
+        href="index.html"
+        class="text-red-500 bg-red-50 hover:bg-red-100 px-4 py-2 rounded-lg font-bold text-xs transition"
+        ><i class="fa-solid fa-power-off"></i> Keluar</a
+      >
+    </nav>
+
+    <div class="container mx-auto mt-6 px-4 flex-grow pb-10">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+        <div
+          class="lg:col-span-2 bg-gradient-to-r from-green-800 to-green-600 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <i
+            class="fa-solid fa-quran absolute -right-6 -top-6 text-[10rem] opacity-10"
+          ></i>
+          <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-star text-yellow-400"></i> Cahaya Ilmu
+          </h2>
+          <div class="space-y-6">
+            <div>
+              <p class="arabic text-2xl font-bold text-yellow-200 mb-2">
+                طَلَبُ الْعِلْمِ فَرِيْضَةٌ عَلَى كُلِّ مُسْلِمٍ
+              </p>
+              <p class="text-sm italic opacity-90">
+                "Menuntut ilmu itu wajib atas setiap Muslim." (HR. Ibnu Majah)
+              </p>
+            </div>
+            <div class="w-full h-px bg-white/20"></div>
+            <div>
+              <p class="arabic text-xl font-bold mb-1">
+                ...يَرْفَعِ ٱللَّهُ ٱلَّذِينَ ءَامَنُوا۟ مِنكُمْ وَٱلَّذِينَ
+                أُوتُوا۟ ٱلْعِلْمَ دَرَجَـٰتٍ
+              </p>
+              <p class="text-xs italic opacity-90">
+                "...Allah akan meninggikan orang-orang yang beriman di antaramu
+                dan orang-orang yang diberi ilmu pengetahuan beberapa derajat."
+                (QS. Al-Mujadilah: 11)
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-lg">
+          <h3 class="font-bold text-gray-800 mb-4 border-b pb-2">
+            Tata Cara Peminjaman
+          </h3>
+          <ul class="space-y-4">
+            <li class="flex gap-3">
+              <span
+                class="bg-green-100 text-green-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                >1</span
+              >
+              <span class="text-sm text-gray-600"
+                >Cari buku di katalog bawah.</span
+              >
+            </li>
+            <li class="flex gap-3">
+              <span
+                class="bg-green-100 text-green-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                >2</span
+              >
+              <span class="text-sm text-gray-600"
+                >Klik tombol <b>Pinjam</b>.</span
+              >
+            </li>
+            <li class="flex gap-3">
+              <span
+                class="bg-green-100 text-green-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                >3</span
+              >
+              <span class="text-sm text-gray-600"
+                >Isi Nama & Kelas dengan benar.</span
+              >
+            </li>
+            <li class="flex gap-3">
+              <span
+                class="bg-green-100 text-green-700 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                >4</span
+              >
+              <span class="text-sm text-gray-600"
+                >Unduh Kartu PDF sebagai bukti.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="font-bold text-xl text-gray-800">
+          <i class="fa-solid fa-swatchbook text-green-600 mr-2"></i>Katalog Buku
+        </h3>
+        <div class="relative w-full max-w-xs">
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"
+          ></i>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Cari judul buku..."
+            class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-200 focus:ring-2 focus:ring-green-500 outline-none shadow-sm"
+            oninput="renderBooks()"
+          />
+        </div>
+      </div>
+
+      <div
+        id="bookContainer"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      ></div>
+    </div>
+
+    <footer
+      class="text-center py-6 text-xs text-gray-400 border-t bg-white mt-auto"
+    >
+      Developed by <span class="font-bold text-green-600">mobmoB</span>
+    </footer>
+
+    <div
+      id="borrowModal"
+      class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+    >
+      <div
+        class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden transform transition-all"
+      >
+        <div
+          class="bg-green-600 p-5 flex justify-between items-center text-white"
+        >
+          <h3 class="font-bold text-lg">Formulir Peminjaman</h3>
+          <button
+            onclick="closeModal()"
+            class="hover:bg-green-700 rounded-full w-8 h-8"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <form id="borrowForm" class="p-6 space-y-5">
+          <input type="hidden" id="bookId" />
+          <div class="bg-green-50 p-4 rounded-xl border border-green-100">
+            <p class="text-xs text-green-600 font-bold uppercase mb-1">
+              Buku yang akan dipinjam:
+            </p>
+            <p
+              id="bookTitleDisplay"
+              class="font-bold text-gray-800 text-lg leading-tight"
+            >
+              ...
+            </p>
+          </div>
+          <div>
+            <label class="text-xs font-bold text-gray-500 ml-1"
+              >Nama Lengkap</label
+            >
+            <input
+              type="text"
+              id="borrowerName"
+              required
+              placeholder="Contoh: Ahmad Rafli"
+              class="w-full mt-1 p-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 capitalize placeholder-gray-400"
+            />
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-bold text-gray-500 ml-1">Kelas</label>
+              <input
+                type="text"
+                id="borrowerClass"
+                required
+                placeholder="Contoh: XI-1   "
+                class="w-full mt-1 p-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 uppercase placeholder-gray-400"
+              />
+            </div>
+            <div>
+              <label class="text-xs font-bold text-gray-500 ml-1"
+                >Durasi (Hari)</label
+              >
+              <input
+                type="number"
+                id="borrowDuration"
+                value="3"
+                min="1"
+                required
+                class="w-full mt-1 p-3 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500 bg-gray-50"
+              />
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-lg flex justify-center items-center gap-2"
+          >
+            <i class="fa-solid fa-file-pdf"></i> Pinjam & Unduh Kartu
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const defaultBooks = [
+        {
+          id: 1,
+          title: "Fikih Islam Wa Adillatuhu",
+          author: "Wahbah Az-Zuhaili",
+          edition: "Jilid 1",
+          stock: 3,
+        },
+        {
+          id: 2,
+          title: "Informatika SMA Kelas XI",
+          author: "Kemendikbud",
+          edition: "Merdeka",
+          stock: 25,
+        },
+        {
+          id: 3,
+          title: "Tafsir Al-Mishbah Vol 1",
+          author: "M. Quraish Shihab",
+          edition: "2020",
+          stock: 2,
+        },
+        {
+          id: 4,
+          title: "Sejarah Kebudayaan Islam",
+          author: "Kemenag RI",
+          edition: "2023",
+          stock: 10,
+        },
+        {
+          id: 5,
+          title: "English for High School",
+          author: "Oxford Press",
+          edition: "Rev 2",
+          stock: 15,
+        },
+        {
+          id: 6,
+          title: "Matematika Diskrit",
+          author: "Rinaldi Munir",
+          edition: "2018",
+          stock: 4,
+        },
+      ];
+
+      let books = JSON.parse(localStorage.getItem("books")) || defaultBooks;
+      let loans = JSON.parse(localStorage.getItem("loans")) || [];
+
+      function renderBooks() {
+        const container = document.getElementById("bookContainer");
+        const search = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        container.innerHTML = "";
+
+        books
+          .filter((b) => b.title.toLowerCase().includes(search))
+          .forEach((book) => {
+            const isHabis = book.stock <= 0;
+            container.innerHTML += `
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition flex flex-col justify-between h-full ${isHabis ? "grayscale opacity-60" : ""}">
+                        <div>
+                            <span class="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded font-bold mb-2 inline-block">${book.edition}</span>
+                            <h4 class="font-bold text-gray-800 leading-snug mb-1">${book.title}</h4>
+                            <p class="text-xs text-gray-400 italic">${book.author}</p>
+                        </div>
+                        <div class="flex justify-between items-center mt-4 pt-3 border-t border-gray-50">
+                            <span class="text-xs text-gray-500">Stok: <b>${book.stock}</b></span>
+                            ${!isHabis ? `<button onclick="openModal(${book.id})" class="bg-green-600 text-white text-xs px-4 py-2 rounded-lg font-bold shadow hover:bg-green-700 transition">Pinjam</button>` : '<span class="text-xs text-red-500 font-bold">HABIS</span>'}
+                        </div>
+                    </div>
+                `;
+          });
+      }
+
+      function openModal(id) {
+        const book = books.find((b) => b.id === id);
+        document.getElementById("bookId").value = book.id;
+        document.getElementById("bookTitleDisplay").innerText = book.title;
+        document.getElementById("borrowModal").classList.remove("hidden");
+      }
+
+      function closeModal() {
+        document.getElementById("borrowModal").classList.add("hidden");
+      }
+
+      document.getElementById("borrowForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const id = parseInt(document.getElementById("bookId").value);
+        const name = document.getElementById("borrowerName").value;
+        const cls = document.getElementById("borrowerClass").value;
+        const dur = parseInt(document.getElementById("borrowDuration").value);
+
+        const idx = books.findIndex((b) => b.id === id);
+        if (books[idx].stock > 0) {
+          books[idx].stock--;
+          const loan = {
+            id: Date.now(),
+            bookId: id,
+            borrower: name,
+            class: cls,
+            date: new Date().toISOString(),
+            duration: dur,
+            dueDate: new Date(Date.now() + dur * 86400000).toISOString(),
+            status: "Dipinjam",
+            returnStatus: "-",
+          };
+          loans.push(loan);
+          localStorage.setItem("books", JSON.stringify(books));
+          localStorage.setItem("loans", JSON.stringify(loans));
+
+          generatePDF(loan, books[idx]);
+          closeModal();
+          renderBooks();
+          document.getElementById("borrowForm").reset();
+        }
+      });
+
+      // --- PDF GENERATOR (UPDATED SIGNATURE POSITION) ---
+      function generatePDF(loan, book) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+          orientation: "landscape",
+          unit: "mm",
+          format: [130, 80],
+        });
+        const green = [22, 163, 74];
+
+        // Background & Header
+        doc.setFillColor(255, 255, 255);
+        doc.rect(0, 0, 130, 80, "F");
+        doc.setFillColor(...green);
+        doc.rect(0, 0, 130, 18, "F");
+
+        // Logo Vector
+        doc.setFillColor(255, 255, 255);
+        doc.circle(12, 9, 7, "F");
+        doc.setFillColor(...green);
+        doc.triangle(12, 5, 8, 12, 16, 12, "F");
+        doc.setFontSize(5);
+        doc.setTextColor(...green);
+        doc.text("MAB", 10.5, 14);
+
+        // Text Header
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "bold");
+        doc.text("PERPUSTAKAAN DIGITAL", 24, 7);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "normal");
+        doc.text("MA BILINGUAL MUSLIMAT NU SIDOARJO", 24, 11);
+        doc.setFontSize(7);
+        doc.text("Kartu Bukti Peminjaman Buku", 24, 15);
+
+        // Data Peminjam (Kiri)
+        doc.setFillColor(240, 253, 244);
+        doc.roundedRect(5, 23, 58, 32, 2, 2, "F"); // Tinggi dikurangi dikit
+        doc.setTextColor(20, 83, 45);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "bold");
+        doc.text("DATA PEMINJAM", 8, 28);
+
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(10);
+        const splitName = doc.splitTextToSize(loan.borrower, 52);
+        doc.text(splitName, 8, 34);
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "normal");
+        doc.text(`Kelas: ${loan.class}`, 8, 34 + splitName.length * 5);
+
+        // Detail Buku (Kanan)
+        doc.setDrawColor(...green);
+        doc.roundedRect(66, 23, 58, 32, 2, 2, "S");
+        doc.setTextColor(20, 83, 45);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "bold");
+        doc.text("DETAIL BUKU", 69, 28);
+
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "normal");
+        const splitTitle = doc.splitTextToSize(book.title, 54);
+        doc.text(splitTitle, 69, 34);
+
+        let y = 34 + splitTitle.length * 4;
+        doc.setFontSize(8);
+        doc.text(
+          `Tgl Pinjam: ${new Date(loan.date).toLocaleDateString("id-ID")}`,
+          69,
+          y + 2,
+        );
+        doc.setTextColor(200, 0, 0);
+        doc.text(
+          `Jatuh Tempo: ${new Date(loan.dueDate).toLocaleDateString("id-ID")}`,
+          69,
+          y + 6,
+        );
+
+        // --- AREA TANDA TANGAN (PERBAIKAN POSISI) ---
+        const sigY = 62;
+        doc.setTextColor(100, 100, 100);
+        doc.setFontSize(6);
+
+        // Label Tanda Tangan (Di Atas)
+        doc.text("Tanda Tangan Peminjam", 20, sigY, { align: "center" });
+        doc.text("Tanda Tangan Petugas", 110, sigY, { align: "center" });
+
+        // Garis (Di Tengah)
+        doc.setDrawColor(150, 150, 150);
+        doc.line(10, sigY + 10, 30, sigY + 10);
+        doc.line(100, sigY + 10, 120, sigY + 10);
+
+        // Nama (Di Bawah Garis)
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(7);
+        doc.text(loan.borrower.split(" ")[0], 20, sigY + 13, {
+          align: "center",
+        });
+        doc.text("Admin Perpus", 110, sigY + 13, { align: "center" });
+
+        doc.save(`Pinjam_${loan.borrower}.pdf`);
+      }
+      renderBooks();
+    </script>
+  </body>
+</html>

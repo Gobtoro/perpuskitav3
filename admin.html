@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Library Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap");
+      body {
+        font-family: "Outfit", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 flex flex-col min-h-screen">
+    <nav
+      class="bg-slate-900 text-white sticky top-0 z-40 px-6 py-3 flex justify-between items-center shadow-lg"
+    >
+      <div class="flex items-center gap-3">
+        <div
+          class="w-8 h-8 bg-green-500 rounded flex items-center justify-center font-bold text-lg"
+        >
+          A
+        </div>
+        <div>
+          <h1 class="font-bold text-sm tracking-wide uppercase">Panel Admin</h1>
+          <p class="text-[10px] text-gray-400">Library Management System</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="hidden md:flex bg-slate-800 rounded-lg p-1 gap-1">
+          <button
+            onclick="downloadTemplate()"
+            class="text-xs px-3 py-1.5 rounded hover:bg-slate-700 transition"
+          >
+            <i class="fa-solid fa-download mr-1"></i> Template
+          </button>
+          <label
+            class="text-xs px-3 py-1.5 rounded hover:bg-slate-700 transition cursor-pointer"
+          >
+            <i class="fa-solid fa-file-excel mr-1 text-green-400"></i> Import
+            <input type="file" hidden onchange="importData(this)" />
+          </label>
+          <button
+            onclick="resetData()"
+            class="text-xs px-3 py-1.5 rounded hover:bg-red-900/50 text-red-400 transition"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+        <div class="h-6 w-px bg-slate-700 mx-2"></div>
+        <a
+          href="index.html"
+          class="text-xs text-red-400 font-bold hover:text-white transition"
+          ><i class="fa-solid fa-power-off"></i> Logout</a
+        >
+      </div>
+    </nav>
+
+    <div class="container mx-auto mt-8 px-4 flex-grow pb-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div
+          class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between"
+        >
+          <div>
+            <p class="text-xs text-gray-500 font-bold uppercase">
+              Total Judul Buku
+            </p>
+            <h3 id="totalTitles" class="text-3xl font-bold text-slate-800">
+              0
+            </h3>
+          </div>
+          <div
+            class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-xl"
+          >
+            <i class="fa-solid fa-book"></i>
+          </div>
+        </div>
+        <div
+          class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between"
+        >
+          <div>
+            <p class="text-xs text-gray-500 font-bold uppercase">
+              Total Stok Buku
+            </p>
+            <h3 id="totalStock" class="text-3xl font-bold text-slate-800">0</h3>
+          </div>
+          <div
+            class="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-xl"
+          >
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+        </div>
+        <div
+          class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between"
+        >
+          <div>
+            <p class="text-xs text-gray-500 font-bold uppercase">
+              Sedang Dipinjam
+            </p>
+            <h3 id="activeLoans" class="text-3xl font-bold text-orange-600">
+              0
+            </h3>
+          </div>
+          <div
+            class="w-12 h-12 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center text-xl"
+          >
+            <i class="fa-solid fa-hand-holding-hand"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div
+          class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 h-fit"
+        >
+          <div
+            class="bg-slate-50 p-4 border-b border-gray-200 flex justify-between items-center"
+          >
+            <h3 class="font-bold text-slate-700 flex items-center gap-2">
+              <i class="fa-regular fa-clock"></i> Peminjaman Berjalan
+            </h3>
+          </div>
+          <div class="overflow-x-auto max-h-[400px]">
+            <table class="w-full text-sm text-left">
+              <thead
+                class="bg-gray-50 text-gray-400 text-xs uppercase font-bold sticky top-0"
+              >
+                <tr>
+                  <th class="p-4">Siswa</th>
+                  <th class="p-4">Buku</th>
+                  <th class="p-4">Tempo</th>
+                  <th class="p-4 text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="activeTable" class="divide-y divide-gray-100"></tbody>
+            </table>
+            <div
+              id="emptyActive"
+              class="p-8 text-center text-gray-400 italic text-sm hidden"
+            >
+              Belum ada peminjaman aktif.
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 h-fit"
+        >
+          <div
+            class="bg-slate-50 p-4 border-b border-gray-200 flex justify-between items-center"
+          >
+            <h3 class="font-bold text-slate-700 flex items-center gap-2">
+              <i class="fa-solid fa-history"></i> Log Pengembalian
+            </h3>
+          </div>
+          <div class="overflow-x-auto max-h-[400px]">
+            <table class="w-full text-sm text-left">
+              <thead
+                class="bg-gray-50 text-gray-400 text-xs uppercase font-bold sticky top-0"
+              >
+                <tr>
+                  <th class="p-4">Siswa</th>
+                  <th class="p-4">Buku</th>
+                  <th class="p-4">Status</th>
+                </tr>
+              </thead>
+              <tbody id="historyTable" class="divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center py-6 text-xs text-gray-400 mt-auto bg-slate-200">
+      Developed by <span class="font-bold text-slate-600">mobmoB</span>
+    </footer>
+
+    <script>
+      let books = JSON.parse(localStorage.getItem("books")) || [];
+      let loans = JSON.parse(localStorage.getItem("loans")) || [];
+
+      function saveData() {
+        localStorage.setItem("books", JSON.stringify(books));
+        localStorage.setItem("loans", JSON.stringify(loans));
+        renderDashboard();
+      }
+
+      function renderDashboard() {
+        const activeBody = document.getElementById("activeTable");
+        const historyBody = document.getElementById("historyTable");
+        activeBody.innerHTML = "";
+        historyBody.innerHTML = "";
+
+        const active = loans.filter((l) => l.status === "Dipinjam");
+        const history = loans.filter((l) => l.status === "Kembali");
+
+        // UPDATE STATS CARDS
+        document.getElementById("totalTitles").innerText = books.length;
+        document.getElementById("totalStock").innerText = books.reduce(
+          (acc, curr) => acc + curr.stock,
+          0,
+        );
+        document.getElementById("activeLoans").innerText = active.length;
+
+        document
+          .getElementById("emptyActive")
+          .classList.toggle("hidden", active.length > 0);
+
+        // RENDER ACTIVE
+        active.forEach((l) => {
+          const book = books.find((b) => b.id === l.bookId) || { title: "?" };
+          const isLate = new Date() > new Date(l.dueDate);
+          activeBody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-4">
+                            <p class="font-bold text-gray-800">${l.borrower}</p>
+                            <span class="text-xs bg-gray-100 px-2 rounded text-gray-500">${l.class}</span>
+                        </td>
+                        <td class="p-4 text-gray-600 text-xs max-w-[150px] truncate">${book.title}</td>
+                        <td class="p-4 font-mono text-xs ${isLate ? "text-red-500 font-bold" : "text-gray-500"}">
+                            ${new Date(l.dueDate).toLocaleDateString("id-ID")}
+                            ${isLate ? '<i class="fa-solid fa-circle-exclamation ml-1"></i>' : ""}
+                        </td>
+                        <td class="p-4 text-center">
+                            <button onclick="returnBook(${l.id})" class="text-[10px] uppercase font-bold bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white px-3 py-1.5 rounded-full transition shadow-sm">Kembalikan</button>
+                        </td>
+                    </tr>
+                `;
+        });
+
+        // RENDER HISTORY
+        history.forEach((l) => {
+          const book = books.find((b) => b.id === l.bookId) || { title: "?" };
+          const badge =
+            l.returnStatus === "Late"
+              ? "bg-red-50 text-red-600"
+              : "bg-green-50 text-green-600";
+          historyBody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-4 font-medium text-gray-700">${l.borrower}</td>
+                        <td class="p-4 text-xs text-gray-500 max-w-[150px] truncate">${book.title}</td>
+                        <td class="p-4"><span class="px-2 py-1 rounded text-[10px] font-bold uppercase ${badge}">${l.returnStatus}</span></td>
+                    </tr>
+                `;
+        });
+      }
+
+      function returnBook(id) {
+        if (!confirm("Konfirmasi pengembalian buku?")) return;
+        const idx = loans.findIndex((l) => l.id === id);
+        const loan = loans[idx];
+
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        const due = new Date(loan.dueDate);
+        due.setHours(0, 0, 0, 0);
+
+        loans[idx].status = "Kembali";
+        loans[idx].returnDate = new Date().toISOString();
+        loans[idx].returnStatus = now > due ? "Late" : "On-Time";
+
+        const bIdx = books.findIndex((b) => b.id === loan.bookId);
+        if (bIdx !== -1) books[bIdx].stock++;
+
+        saveData();
+      }
+
+      function resetData() {
+        if (
+          confirm("HATI-HATI: Ini akan menghapus semua database. Lanjutkan?")
+        ) {
+          localStorage.clear();
+          location.reload();
+        }
+      }
+
+      // --- EXCEL LOGIC ---
+      function downloadTemplate() {
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet([
+          ["Judul", "Penulis", "Edisi", "Stok"],
+        ]);
+        XLSX.utils.book_append_sheet(wb, ws, "DataBuku");
+        XLSX.writeFile(wb, "Template_Perpus_MABI.xlsx");
+      }
+
+      function importData(input) {
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const data = new Uint8Array(e.target.result);
+          const wb = XLSX.read(data, { type: "array" });
+          const json = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {
+            header: 1,
+          });
+
+          let added = 0;
+          for (let i = 1; i < json.length; i++) {
+            if (json[i][0]) {
+              books.push({
+                id: Date.now() + i,
+                title: json[i][0],
+                author: json[i][1] || "-",
+                edition: json[i][2] || "-",
+                stock: parseInt(json[i][3]) || 0,
+              });
+              added++;
+            }
+          }
+          saveData();
+          alert(`Berhasil mengimpor ${added} buku baru.`);
+        };
+        reader.readAsArrayBuffer(file);
+      }
+
+      renderDashboard();
+    </script>
+  </body>
+</html>
