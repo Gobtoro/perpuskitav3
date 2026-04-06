@@ -3,45 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      PerpusKita - Perpustakaan Digital MA Bilingual Muslimat NU Sidoarjo
-    </title>
+    <title>E-Perpus MABi - Welcome</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap");
-      body {
-        font-family: "Outfit", sans-serif;
-      }
-      .float-anim {
-        animation: float 3s ease-in-out infinite;
-      }
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
-      .glass {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body
     class="bg-gradient-to-br from-green-50 to-green-100 min-h-screen flex flex-col justify-between"
   >
-    <div class="flex-grow flex flex-col items-center justify-center p-6">
-      <div class="text-center mb-8 animate-fade-in-down">
+    <div
+      class="bungkus-utama flex-grow flex flex-col items-center justify-center p-6"
+    >
+      <div class="teks-sambutan text-center mb-8">
         <div
-          class="inline-block p-4 rounded-full bg-green-600 text-white shadow-lg float-anim mb-4"
+          class="ikon-logo animasi-ngambang inline-block p-4 rounded-full bg-green-600 text-white shadow-lg mb-4"
         >
           <i class="fa-solid fa-book-quran text-4xl"></i>
         </div>
@@ -51,102 +29,135 @@
           Selamat Datang
         </h1>
         <p class="text-xl text-green-700 font-medium mt-2">
-          Di PerpusKita (Perpustakaan Digital)
+          Di Perpustakaan Digital (E-Perpus)
         </p>
         <p class="text-gray-500 text-sm mt-1">
           MA Bilingual Muslimat NU Sidoarjo
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl z-10">
+      <div
+        class="grup-kartu grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl z-10"
+      >
         <button
-          onclick="openLogin('siswa')"
-          class="group relative overflow-hidden bg-white hover:bg-green-600 border border-green-100 rounded-3xl p-8 transition-all duration-300 shadow-xl hover:shadow-2xl text-left transform hover:-translate-y-2"
+          onclick="bukaLogin('siswa')"
+          class="kartu-pilihan group bg-white hover:bg-green-600 border border-green-100 rounded-3xl p-8 transition-all shadow-xl text-left"
         >
-          <div
-            class="absolute -right-10 -top-10 bg-green-50 w-40 h-40 rounded-full group-hover:bg-green-500 transition"
-          ></div>
           <i
-            class="fa-solid fa-graduation-cap text-5xl text-green-600 group-hover:text-white mb-4 relative z-10 transition"
+            class="fa-solid fa-graduation-cap text-5xl text-green-600 group-hover:text-white mb-4 transition"
           ></i>
-          <h3
-            class="font-bold text-2xl text-gray-800 group-hover:text-white relative z-10"
-          >
+          <h3 class="font-bold text-2xl text-gray-800 group-hover:text-white">
             Login SISWA
           </h3>
-          <p
-            class="text-sm text-gray-500 group-hover:text-green-100 mt-2 relative z-10"
-          >
-            Akses katalog, literasi & peminjaman.
+          <p class="text-sm text-gray-500 group-hover:text-green-100 mt-2">
+            Gunakan Email dan Password.
           </p>
         </button>
 
         <button
-          onclick="openLogin('admin')"
-          class="group relative overflow-hidden bg-white hover:bg-gray-800 border border-gray-100 rounded-3xl p-8 transition-all duration-300 shadow-xl hover:shadow-2xl text-left transform hover:-translate-y-2"
+          onclick="bukaLogin('admin')"
+          class="kartu-pilihan group bg-white hover:bg-gray-800 border border-gray-100 rounded-3xl p-8 transition-all shadow-xl text-left"
         >
-          <div
-            class="absolute -right-10 -top-10 bg-gray-50 w-40 h-40 rounded-full group-hover:bg-gray-700 transition"
-          ></div>
           <i
-            class="fa-solid fa-user-gear text-5xl text-gray-600 group-hover:text-white mb-4 relative z-10 transition"
+            class="fa-solid fa-user-gear text-5xl text-gray-600 group-hover:text-white mb-4 transition"
           ></i>
-          <h3
-            class="font-bold text-2xl text-gray-800 group-hover:text-white relative z-10"
-          >
+          <h3 class="font-bold text-2xl text-gray-800 group-hover:text-white">
             Login ADMIN
           </h3>
-          <p
-            class="text-sm text-gray-500 group-hover:text-gray-400 mt-2 relative z-10"
-          >
-            Kelola buku & data (Khusus Staff Perpustakaan).
+          <p class="text-sm text-gray-500 group-hover:text-gray-400 mt-2">
+            Kelola buku, murid & denda.
           </p>
         </button>
       </div>
     </div>
 
-    <footer class="text-center py-4 text-xs text-gray-400">
+    <footer class="kaki-web text-center py-4 text-xs text-gray-400">
       Developed by <span class="font-bold text-green-600">mobmoB</span>
     </footer>
 
     <div
-      id="loginModal"
-      class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center backdrop-blur-sm p-4"
+      id="modalLogin"
+      class="layar-gelap fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center backdrop-blur-sm p-4"
     >
-      <div class="bg-white w-full max-w-sm p-8 rounded-3xl shadow-2xl relative">
+      <div
+        class="kotak-login bg-white w-full max-w-sm p-8 rounded-3xl shadow-2xl relative"
+      >
         <button
-          onclick="
-            document.getElementById('loginModal').classList.add('hidden')
-          "
-          class="absolute top-4 right-4 text-gray-400 hover:text-red-500"
+          onclick="tutupLogin()"
+          class="tombol-tutup absolute top-4 right-4 text-gray-400 hover:text-red-500"
         >
           <i class="fa-solid fa-xmark text-xl"></i>
         </button>
         <h2
-          id="modalTitle"
+          id="judulLogin"
           class="text-2xl font-bold text-center mb-6 text-green-800"
         >
           Login
         </h2>
-        <form onsubmit="handleLogin(event)" class="space-y-4">
-          <input type="hidden" id="roleInput" />
-          <input
-            type="text"
-            id="username"
-            class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none bg-gray-50"
-            placeholder="Username"
-            required
-          />
-          <input
-            type="password"
-            id="password"
-            class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none bg-gray-50"
-            placeholder="Password"
-            required
-          />
+
+        <form
+          id="formMasuk"
+          onsubmit="prosesLogin(event)"
+          class="ruang-form space-y-4"
+          autocomplete="off"
+        >
+          <input type="hidden" id="peran" />
+
+          <div id="boxSiswa" class="hidden space-y-4">
+            <input
+              type="email"
+              id="emailSiswa"
+              autocomplete="off"
+              class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 bg-gray-50"
+              placeholder="Email Kamu"
+            />
+            <div class="relatif relative">
+              <input
+                type="password"
+                id="passSiswa"
+                autocomplete="new-password"
+                class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 bg-gray-50 pr-10"
+                placeholder="Password Kamu"
+              />
+              <button
+                type="button"
+                onclick="intipSandi('passSiswa', 'ikonMataSiswa')"
+                class="mata-sandi absolute right-3 top-3 text-gray-400 hover:text-green-600"
+              >
+                <i id="ikonMataSiswa" class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div id="boxAdmin" class="hidden space-y-4">
+            <input
+              type="text"
+              id="userAdmin"
+              autocomplete="off"
+              class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 bg-gray-50"
+              placeholder="Username Admin"
+            />
+            <div class="relatif relative">
+              <input
+                type="password"
+                id="passAdmin"
+                autocomplete="new-password"
+                class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 bg-gray-50 pr-10"
+                placeholder="Password Admin"
+              />
+              <button
+                type="button"
+                onclick="intipSandi('passAdmin', 'ikonMataAdmin')"
+                class="mata-sandi absolute right-3 top-3 text-gray-400 hover:text-green-600"
+              >
+                <i id="ikonMataAdmin" class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
           <button
             type="submit"
-            class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl transition shadow-lg"
+            class="tombol-gas w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-lg transition"
           >
             MASUK
           </button>
@@ -154,32 +165,6 @@
       </div>
     </div>
 
-    <script>
-      function openLogin(role) {
-        document.getElementById("loginModal").classList.remove("hidden");
-        document.getElementById("roleInput").value = role;
-        document.getElementById("modalTitle").innerText =
-          role === "admin" ? "Login Admin" : "Login Siswa";
-        document.getElementById("username").value = "";
-        document.getElementById("password").value = "";
-      }
-
-      function handleLogin(e) {
-        e.preventDefault();
-        const role = document.getElementById("roleInput").value;
-        const user = document.getElementById("username").value;
-        const pass = document.getElementById("password").value;
-
-        if (role === "siswa") {
-          if (user === "student" && pass === "student")
-            window.location.href = "siswa.html";
-          else alert("Username/Password Salah! (Coba: student/student)");
-        } else {
-          if (user === "admin" && pass === "ADMINONLY")
-            window.location.href = "admin.html";
-          else alert("Password Admin Salah.");
-        }
-      }
-    </script>
+    <script src="login.js"></script>
   </body>
 </html>

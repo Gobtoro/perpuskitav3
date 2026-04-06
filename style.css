@@ -1,0 +1,26 @@
+/* Import Font dari Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amiri:ital@0;1&display=swap");
+
+/* Pengaturan Font Dasar */
+body {
+  font-family: "Outfit", sans-serif;
+}
+.huruf-arab {
+  font-family: "Amiri", serif;
+}
+
+/* Animasi Kustom Buatan Sendiri */
+.animasi-ngambang {
+  animation: naik-turun 3s ease-in-out infinite;
+}
+
+@keyframes naik-turun {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
